@@ -49,21 +49,21 @@ export class Graph extends React.Component {
     createGraph(graph: Lnd.Graph) {
         // map the graph nodes into simple objects that d3 will use
         // during rendering
-        this.nodes = graph.nodes.map((node) => {
+        this.nodes = graph.nodes.map(node => {
             return {
                 id: node.pub_key,
                 color: node.color,
-                title: node.alias
+                title: node.alias,
             };
         });
 
         // map the graph channels into simple objects that d3 will use
         // during rendering
-        this.links = graph.edges.map((edge) => {
+        this.links = graph.edges.map(edge => {
             return {
                 id: edge.channel_id,
                 source: edge.node1_pub,
-                target: edge.node2_pub
+                target: edge.node2_pub,
             };
         });
 
@@ -150,6 +150,8 @@ export class Graph extends React.Component {
         }
 
         // Exercise: Remove closed channels from `this.links`.
+        const closedChannels = update.result.channel_updates.map(c => c.chan_id);
+        this.links = this.links.filter(l => !closedChannels.includes(l.id));
 
         this.draw();
     }

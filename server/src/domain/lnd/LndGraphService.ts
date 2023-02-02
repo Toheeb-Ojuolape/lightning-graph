@@ -30,8 +30,9 @@ export class LndGraphService extends EventEmitter implements IGraphService {
      * @returns
      */
     public async subscribeGraph(): Promise<void> {
-        // Exercise: subscribe to the Lnd graph updates using `subscribeGraph`
-        // and emit a "update" event using `this.emit`.
+        this.lnd.subscribeGraph(update => {
+            this.emit("update", update);
+        });
     }
 }
 
