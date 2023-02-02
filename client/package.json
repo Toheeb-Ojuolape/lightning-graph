@@ -26,5 +26,8 @@
     "tsify": "^5.0.4",
     "uglify-es": "^3.3.9",
     "watchify": "^4.0.0"
+  },
+  "dependencies": {
+    "@types/node": "^18.11.18"
   }
 }

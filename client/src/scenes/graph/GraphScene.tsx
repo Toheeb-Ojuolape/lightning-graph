@@ -9,15 +9,18 @@ export const GraphScene = () => {
     const graphRef = useRef<Graph>();
 
     useEffect(() => {
-        // Exercise: Using the api, call the fetchGraph method. Since
-        // this returns a promise, we need to use the `then` method to
-        // retrieve the results. With the results, call
-        // `graphRef.current.createGraph` and add a console.log
-        // statement so you see the graph.
+        api.fetchGraph().then((graph) => {
+            if (graphRef.current) {
+            graphRef.current.createGraph(graph);
+            }
+            console.log(graph);
+            });
     }, []);
 
     useSocket("graph", (update: Lnd.GraphUpdate) => {
-        // Exercise: Call `graphRef.current.updateGraph` with the update
+        if (graphRef.current) {
+            graphRef.current.updateGraph(update);
+            }
     });
 
     return (
